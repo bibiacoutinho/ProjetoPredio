@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Prédio</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="cabecalho">
+        <section class="container">
+            <p><i data-feather="clock" class="icone"></i></p>
+            <p><span id="horas"></span></p>
+        </section>
+        <section class="container">
+            <p><i data-feather="map-pin" class="icone"></i></p>
+            <p>LAT: <span id="lat"></span></p>
+        </section>
+        <section class="container">
+            <p><i data-feather="map-pin" class="icone"></i></p>
+            <p>LNG: <span id="lng"></span></p>
+        </section>
+    </header>
+
+    <main id="principal" class="dia">
+        <section id="predio">
+            <div class="cont-h">
+                <div id="1" class="apagada" onclick="janela('1')">1</div>
+                <div id="2" class="apagada" onclick="janela('2')">2</div>
+                <div id="3" class="apagada" onclick="janela('3')">3</div>
+            </div>
+            <div class="cont-h">
+                <div id="4" class="apagada" onclick="janela('4')">4</div>
+                <div id="5" class="apagada" onclick="janela('5')">5</div>
+                <div id="6" class="apagada" onclick="janela('6')">6</div>
+            </div>
+            <div class="cont-h">
+                <div id="7" class="apagada" onclick="janela('7')">7</div>
+                <div id="8" class="apagada" onclick="janela('8')">8</div>
+                <div id="9" class="apagada" onclick="janela('9')">9</div>
+            </div>
+            <div class="cont-h">
+                <div id="10" class="apagada" onclick="janela('10')">10</div>
+                <div id="11" class="apagada" onclick="janela('11')">11</div>
+                <div id="12" class="apagada" onclick="janela('12')">12</div>
+            </div>
+        </section>
+        <section id="info">
+            <div id="controle">
+                <div id="botao" onclick="controle()"><span><i data-feather="power"></span></i></div>
+            </div>
+        </section> 
+    </main>
+
+    <footer id="rodape">
+        <p>Feito por Beatriz Coutinho.</p>
+        <p>
+            <a href="https://github.com/bibiacoutinho" target="_blank"><i data-feather="github"></i></a>
+            <a href="https://www.linkedin.com/in/bibiacoutinho/" target="_blank"><i data-feather="linkedin"></i></a>
+        </p>
+    </footer>
+    <script>
+        feather.replace()
+      </script>
+</body>
+</html>
