@@ -7,6 +7,7 @@
     --lilas: #7D82B8;
     --cinza: #99A1A6;
     --grafite: #353A47;
+    --azul: #172852;
     --amarelo: #f9faa8;
     --laranja: #f18805;
 }
@@ -60,7 +61,7 @@ main.dia {
 }
 
 main.noite {
-    background-color: var(--grafite);
+    background-color: var(--azul);
 }
 
 main#principal section#predio {
@@ -103,6 +104,7 @@ main#principal section#info div#controle {
     background-color: var(--grafite);
     height: 127px;
     width: 88px;
+    border: 1px solid black;
     border-radius: 20px;
     margin-top: 350px;
     display: flex;

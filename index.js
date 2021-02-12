@@ -1,12 +1,3 @@
-//Requisições API
-const latId = document.getElementById('lat');
-const lngId = document.getElementById('lng');
-var horaId = document.getElementById('horas');
-var cenario = document.getElementById('principal');
-
-// latitude: -23.1793431
-// longitude: -45.8754657
-
 function convertPMto24(hour) {      // FUNÇÃO OK retorna apenas hora convertida
     // hour = parâmetro
     //hour = "8:05:55 PM";
@@ -30,22 +21,21 @@ function convertPMto24(hour) {      // FUNÇÃO OK retorna apenas hora convertid
 }
 
 function formatTime(time) {     // FUNÇÃO OK    time(é parâmetro da função) = sunrise ou sunset
-    //let time = "7:27:02 AM"
-    if (time.indexOf("PM") !== -1){
+    if (time.indexOf("PM") !== -1) {
         let timeHour = convertPMto24(time)
-        let timeSplit = (time.slice(0,-3)).split(":")
+        let timeSplit = (time.slice(0, -3)).split(":")
         let timeForm = timeHour + ":" + timeSplit[1]
         //console.log(timeForm)
         return timeForm
     } else {
-        let timeSplit = (time.slice(0,-3)).split(":")
+        let timeSplit = (time.slice(0, -3)).split(":")
         let timeForm = timeSplit[0] + ":" + timeSplit[1]
         //console.log(timeForm)
         return timeForm
     }
 }
 
-function isItSooner(time1, time2){   //FUNÇÃO OK retorna se h1 é mais cedo que h2
+function isItSooner(time1, time2) {   //FUNÇÃO OK retorna se h1 é mais cedo que h2
     time1 = time1.split(":")
     time2 = time2.split(":")
 
@@ -57,124 +47,95 @@ function isItSooner(time1, time2){   //FUNÇÃO OK retorna se h1 é mais cedo qu
     return d1 < d2
 }
 
-function isItDay(){    //parâmetros = sunrise e sunset        função meio ok -> não muda cor do cenario
-    let sunrise = formatTime("7:27:02 AM")
-    let sunset = formatTime("5:05:02 AM")
-    //let d = new Date();
-    //let timeNow = d.getHours() + ":" + d.getMinutes;
-    let timeNow = "1:24"
+function timeNow() {
+    let d = new Date();
+    let time = d.getHours() + ":" + d.getMinutes();
+    return time
+}
 
-    if (isItSooner(sunrise,timeNow) && isItSooner(timeNow,sunset)){
-        console.log("é dia")
+function localUser() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(printFront);
+        navigator.geolocation.getCurrentPosition(apiGet);
+    } else {
+        alert('Não foi possível pegar localização.');
+    }
+}
+
+var int = 1
+function controle() {
+    if (int === 1) {
+        int = int + 1
+        for (let i = 1; i <= 12; i++) {
+            j = document.getElementById(`${i}`)
+            j.classList.remove("apagada")
+            j.classList.add("acesa")
+        }
+    } else {
+        int = int - 1
+        for (let i = 1; i <= 12; i++) {
+            j = document.getElementById(`${i}`)
+            j.classList.remove("acesa")
+            j.classList.add("apagada")
+        }
+    }
+}
+
+function janela(id) {
+    let j = document.getElementById(id)
+    if (j.className == "apagada") {
+        j.classList.remove("apagada")
+        j.classList.add("acesa")
+    } else {
+        j.classList.remove("acesa")
+        j.classList.add("apagada")
+    }
+}
+
+function printFront(position) {
+    let latId = document.getElementById('lat');
+    let lngId = document.getElementById('lng');
+    let horaId = document.getElementById('horas');
+    horaId.innerHTML = timeNow()
+    latId.innerHTML = position.coords.latitude
+    lngId.innerHTML = position.coords.longitude
+}
+
+function apiGet(position){
+    let lat = position.coords.latitude
+    let lng = position.coords.longitude
+    axios.get(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}`)
+   .then(function (response) {
+     // handle success
+     console.log(response.data);
+     //console.log(typeof response.data.sunrise);
+     return response.data;
+   })
+   .catch(function (error) {
+     // handle error
+     console.log(error);
+   })
+   .then(function () {
+     // always executed
+   });
+}
+
+function isItDay() {    //parâmetros = sunrise e sunset
+    let sunrise = formatTime("7:27:02 AM")
+    let sunset = formatTime("8:05:02 PM")
+    let cenario = document.getElementById('principal');
+
+    if (isItSooner(sunrise, timeNow()) && isItSooner(timeNow(), sunset)) {
+        //console.log("é dia")
         cenario.classList.remove("noite")
         cenario.classList.add("dia")
     } else {
-        console.log("é noite")
+        //console.log("é noite")
         cenario.classList.remove("dia")
         cenario.classList.add("noite")
     }
 }
 
 isItDay();
-
-//--------------------------------------------------------------------------------
-
-// function BuscaLatLng(){
-//     if ('geolocation' in navigator){
-//         navigator.geolocation.getCurrentPosition(function(position){
-//             console.log('latitude: '+ position.coords.latitude);
-//             console.log('longitude: '+ position.coords.longitude);
-//             console.log(position.coords)
-//             return position.coords;
-//         }, function(error){
-//             console.log(error);
-//         })
-//     } else {
-//         alert('Não foi possível pegar localização.');
-//     }
-// }
-
-// function apiGet(){
-//     axios.get(`https://api.sunrise-sunset.org/json?lat=-23.1793431&lng=-45.8754657`)
-//    .then(function (response) {
-//      // handle success
-//      console.log(response.data);
-//      console.log(typeof response.data.sunrise);
-//      return response.data;
-//    })
-//    .catch(function (error) {
-//      // handle error
-//      console.log(error);
-//    })
-//    .then(function () {
-//      // always executed
-//    });
-// }
-
-// apiGet();
-
-// function LocalUser(){
-//     la = BuscaLatLng().latitude;
-//     lo = BuscaLatLng().longitude;
-//     console.log(la);
-//     console.log(lo);
-// }
-
-
-
-// function InformaLatLng(){
-//     latId.innerHTML = BuscaLatLng().coords.latitude;
-//     lngId.innerHTML = BuscaLatLng().coords.longitude;
-// }
-
-
-
-
-//latitude: -23.1793431
-//longitude: -45.8754657
-//  function fazGet(url){
-//      let request = new XMLHttpRequest();
-//      request.open('GET', url, false);
-//      request.send();
-//      return request.responseText;
-//  }
-
-//  function main(){
-//      data = fazGet("https://api.sunrise-sunset.org/json?lat=-23.1793431&lng=-45.8754657");
-//      u = JSON.parse(data);
-//      console.log(u);
-//  }
-
-//--------------------------------------------------------------------------------
-
-//*******************************Controle de janelas*******************************
-
-// let int = 1
-// function controle() {
-//     if (int === 1) {
-//         int = int + 1
-//         for (let i = 1; i <= 12; i++) {
-//             j = document.getElementById(`${i}`)
-//             j.classList.remove("apagada")
-//             j.classList.add("acesa")
-//         }
-//     } else {
-//         int = int - 1
-//         for (let i = 1; i <= 12; i++) {
-//             j = document.getElementById(`${i}`)
-//             j.classList.remove("acesa")
-//             j.classList.add("apagada")
-//         }
-//     }
-// }
-
-//  function janela(id){
-//      let j = document.getElementById(id)
-//      if(j.className == "apagada"){
-//          j.classList.remove("apagada")
-//          j.classList.add("acesa")
-//      } else{
-//          j.classList.remove("acesa")
-//          j.classList.add("apagada")
-//      }
-//  }
+localUser();
+printFront();
