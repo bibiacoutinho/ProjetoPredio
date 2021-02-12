@@ -88,7 +88,7 @@ function timeNow() {  //retorna hora em 24h
     let m = String(d.getMinutes())
     let h = d.getHours()
     let time = "0"
-    if (m.length = 1){
+    if (m.length == 1){
         time = h + ":0" + m
     } else {
         time = h + ":" + m
