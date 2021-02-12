@@ -1,3 +1,36 @@
+//Controle das luzes
+var int = 1
+function controle() {
+    if (int === 1) {
+        int = int + 1
+        for (let i = 1; i <= 12; i++) {
+            j = document.getElementById(`${i}`)
+            j.classList.remove("apagada")
+            j.classList.add("acesa")
+        }
+    } else {
+        int = int - 1
+        for (let i = 1; i <= 12; i++) {
+            j = document.getElementById(`${i}`)
+            j.classList.remove("acesa")
+            j.classList.add("apagada")
+        }
+    }
+}
+
+function janela(id) {
+    let j = document.getElementById(id)
+    if (j.className == "apagada") {
+        j.classList.remove("apagada")
+        j.classList.add("acesa")
+    } else {
+        j.classList.remove("acesa")
+        j.classList.add("apagada")
+    }
+}
+
+//Controle do cenário
+
 function convertPMto24(hour) {      // FUNÇÃO OK retorna apenas hora convertida
     // hour = parâmetro
     //hour = "8:05:55 PM";
@@ -59,36 +92,6 @@ function localUser() {
         navigator.geolocation.getCurrentPosition(apiGet);
     } else {
         alert('Não foi possível pegar localização.');
-    }
-}
-
-var int = 1
-function controle() {
-    if (int === 1) {
-        int = int + 1
-        for (let i = 1; i <= 12; i++) {
-            j = document.getElementById(`${i}`)
-            j.classList.remove("apagada")
-            j.classList.add("acesa")
-        }
-    } else {
-        int = int - 1
-        for (let i = 1; i <= 12; i++) {
-            j = document.getElementById(`${i}`)
-            j.classList.remove("acesa")
-            j.classList.add("apagada")
-        }
-    }
-}
-
-function janela(id) {
-    let j = document.getElementById(id)
-    if (j.className == "apagada") {
-        j.classList.remove("apagada")
-        j.classList.add("acesa")
-    } else {
-        j.classList.remove("acesa")
-        j.classList.add("apagada")
     }
 }
 
