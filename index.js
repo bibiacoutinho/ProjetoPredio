@@ -82,7 +82,14 @@ function isItSooner(time1, time2) {   //FUNÇÃO OK retorna se h1 é mais cedo q
 
 function timeNow() {
     let d = new Date();
-    let time = d.getHours() + ":" + d.getMinutes();
+    let m = d.getMinutes()
+    let h = d.getHours()
+    let time = "0"
+    if (m.length = 1){
+        time = h + ":0" + m
+    } else {
+        time = h + ":" + m
+    }
     return time
 }
 
