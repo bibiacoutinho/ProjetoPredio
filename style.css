@@ -54,6 +54,7 @@ main#principal {
     max-width: 100%;
     height: 509px;
     justify-content: space-evenly;
+    background-color: #7D82B8;
 }
 
 main.dia {

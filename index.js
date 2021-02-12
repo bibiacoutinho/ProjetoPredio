@@ -53,17 +53,17 @@ function convertPMto24(hour) {      // FUNÇÃO OK retorna apenas hora convertid
     }
 }
 
-function formatTime(time) {     // FUNÇÃO OK    time(é parâmetro da função) = sunrise ou sunset
+function formatTime(time) {     // FUNÇÃO OK    converte sunrise ou sunset pra 24h (pra printar no front)
     if (time.indexOf("PM") !== -1) {
         let timeHour = convertPMto24(time)
         let timeSplit = (time.slice(0, -3)).split(":")
         let timeForm = timeHour + ":" + timeSplit[1]
-        //console.log(timeForm)
+        console.log(timeForm)
         return timeForm
     } else {
         let timeSplit = (time.slice(0, -3)).split(":")
         let timeForm = timeSplit[0] + ":" + timeSplit[1]
-        //console.log(timeForm)
+        console.log(timeForm)
         return timeForm
     }
 }
@@ -71,6 +71,9 @@ function formatTime(time) {     // FUNÇÃO OK    time(é parâmetro da função
 function isItSooner(time1, time2) {   //FUNÇÃO OK retorna se h1 é mais cedo que h2
     time1 = time1.split(":")
     time2 = time2.split(":")
+
+    //console.log("time1: "+ time1)
+    //console.log("time2: "+ time2)
 
     let d = new Date();
     let d1 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), time1[0], time1[1])
@@ -80,12 +83,12 @@ function isItSooner(time1, time2) {   //FUNÇÃO OK retorna se h1 é mais cedo q
     return d1 < d2
 }
 
-function timeNow() {
+function timeNow() {  //retorna hora em 24h
     let d = new Date();
     let m = d.getMinutes()
     let h = d.getHours()
     let time = "0"
-    if (m.length = 1){
+    if (m.length == 1){
         time = h + ":0" + m
     } else {
         time = h + ":" + m
@@ -112,12 +115,17 @@ function printFront(position) {
 }
 
 function apiGet(position){
-    let lat = position.coords.latitude
-    let lng = position.coords.longitude
+    let lat = position?.coords.latitude
+    let lng = position?.coords.longitude
     axios.get(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}`)
    .then(function (response) {
      // handle success
-     console.log(response.data);
+     //console.log(response.data);
+     const { sunrise, sunset } = response.data.results;
+     isItDay(sunrise, sunset)
+     //console.log("sunrise: " + sunrise)
+     //console.log("sunset: " + sunset)
+     //console.log("timeNow: " + timeNow())
      //console.log(typeof response.data.sunrise);
      return response.data;
    })
@@ -130,22 +138,24 @@ function apiGet(position){
    });
 }
 
-function isItDay() {    //parâmetros = sunrise e sunset
-    let sunrise = formatTime("7:27:02 AM")
-    let sunset = formatTime("8:05:02 PM")
-    let cenario = document.getElementById('principal');
+function isItDay(sunrise,sunset) {    //parâmetros = sunrise e sunset   //ou converte timeNow() para 00:00:00 AM
+    let cenario = document.getElementById('principal');                 ////ou converte sunrise/sunset para 24h (mas aí tem que verificar a isItSooner)
+    console.log("isItDay retorno sunrise: " + sunrise)
+    console.log("isItDay retorno sunset: " + sunset)
+    console.log("isItDay retorno timeNow(): "+timeNow())
 
     if (isItSooner(sunrise, timeNow()) && isItSooner(timeNow(), sunset)) {
-        //console.log("é dia")
+        console.log("é dia")
         cenario.classList.remove("noite")
         cenario.classList.add("dia")
     } else {
-        //console.log("é noite")
+        console.log("é noite")
         cenario.classList.remove("dia")
         cenario.classList.add("noite")
     }
 }
 
-isItDay();
 localUser();
 printFront();
+
+//vai printar sunrise e sunset no front? se não, nem precisava do formatTime()
