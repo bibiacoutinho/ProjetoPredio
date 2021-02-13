@@ -90,15 +90,6 @@ function localUser() {
     }
 }
 
-function printFront(position) {
-    let latId = document.getElementById('lat');
-    let lngId = document.getElementById('lng');
-    let horaId = document.getElementById('horas');
-    horaId.innerHTML = timeNow()
-    latId.innerHTML = position.coords.latitude
-    lngId.innerHTML = position.coords.longitude
-}
-
 function apiGet(position){
     let lat = position?.coords.latitude
     let lng = position?.coords.longitude
@@ -106,6 +97,7 @@ function apiGet(position){
    .then(function (response) {
      const { sunrise, sunset } = response.data.results;
      isItDay(sunrise, sunset)
+     printFront(position, sunrise,sunset)
      return response.data;
    })
    .catch(function (error) {
@@ -113,6 +105,19 @@ function apiGet(position){
    })
    .then(function () {
    });
+}
+
+function printFront(position,sunrise,sunset) {
+    let latId = document.getElementById('lat');
+    let lngId = document.getElementById('lng');
+    let horaId = document.getElementById('horas');
+    let sunriseId = document.getElementById('sunrise');
+    let sunsetId = document.getElementById('sunset');
+    horaId.innerHTML = timeNow()
+    latId.innerHTML = position.coords.latitude
+    lngId.innerHTML = position.coords.longitude
+    sunriseId.innerHTML = sunrise
+    sunsetId.innerHTML = sunset
 }
 
 function isItDay(sunrise,sunset) {

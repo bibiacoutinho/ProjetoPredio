@@ -101,13 +101,37 @@ main#principal section#predio div.cont-h div:hover{
     border: 2px solid #fff;
 }
 
+main#principal section#info{
+    display: flex;
+    flex-direction: column;
+    width: 13%;
+    align-items: center;
+}
+
+main#principal section#info div#horario{
+    background-color: var(--rosa);
+    border: 1px solid black;
+    border-radius: 30px;
+    margin-top: 25px;
+    width: 100%;
+}
+
+main#principal section#info div#horario p,main#principal section#info div#horario h4{
+    text-align: center;
+    padding: 10px;
+}
+
+main#principal section#info div#horario p span.horas-api{
+    margin-left: 10px;
+}
+
 main#principal section#info div#controle {
     background-color: var(--grafite);
     height: 127px;
     width: 88px;
     border: 1px solid black;
     border-radius: 20px;
-    margin-top: 350px;
+    margin: 190px 0px 0px;
     display: flex;
     align-items: center;
     justify-content: center;
