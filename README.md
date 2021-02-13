@@ -5,4 +5,6 @@
   <li>HTML</li>
   <li>CSS</li>
   <li>JavaScript</li>
+  <li>Axios</li>
+  <li>Feather Icons</li>
 </ul>
