@@ -5,6 +5,7 @@
     --verde:  #84b082;
     --verm: #d62246;
     --lilas: #7D82B8;
+    --roxo: #732b8a;
     --cinza: #99A1A6;
     --grafite: #353A47;
     --azul: #172852;
@@ -147,5 +148,10 @@ footer#rodape p {
 
 footer#rodape p a{
     text-decoration: none;
+    margin-right: 3px;
     color: var(--lilas);
+}
+
+footer#rodape p a:hover{
+    color: var(--roxo);
 }
